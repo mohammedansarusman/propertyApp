@@ -1,9 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FaBath, FaBed, FaMoneyBill } from "react-icons/fa";
+import { useRates } from "@/customHooks/useRates";
+import { FaBath, FaBed, FaMapMarker, FaMoneyBill } from "react-icons/fa";
 const PropertyCard = ({ property }) => {
-  const { type, name, images, rates, baths, beds, square_feet, location, _id } = property;
-  console.log("images=>", rates.monthly);
+  const { type, name, images, rates, baths, beds, square_feet, location, _id } =
+    property;
+
+  const rate = useRates(rates);
+
   return (
     <div className="rounded-xl shadow-md relative">
       <Image
@@ -21,42 +25,45 @@ const PropertyCard = ({ property }) => {
           <h3 className="text-xl font-bold">{name}</h3>
         </div>
         <h3 className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg text-blue-500 font-bold text-right md:text-center lg:text-right">
-          {rates.monthly + "/ma"}
+          {rate}
         </h3>
 
         <div className="flex justify-center gap-4 text-gray-500 mb-4">
-           <p> 
-            <FaBed className="md:hidden lg:inline" />{beds}{' '}
-            <span className="md:hidden lg:inline">Beds</span>
-           </p>
           <p>
-            <FaBath className="md:hidden lg:inline" />{baths}{' '}
-            <span className="md:hidden lg:inline">Baths</span>
+            <FaBed className="md:hidden lg:inline" />
+            {beds} <span className="md:hidden lg:inline">Beds</span>
+          </p>
+          <p>
+            <FaBath className="md:hidden lg:inline" />
+            {baths} <span className="md:hidden lg:inline">Baths</span>
           </p>
           <p>
             <i className="fa-solid fa-ruler-combined"></i>
-            {square_feet}{' '} <span className="md:hidden lg:inline">sqft</span>
+            {square_feet} <span className="md:hidden lg:inline">sqft</span>
           </p>
         </div>
 
         <div className="flex justify-center gap-4 text-green-900 text-sm mb-4">
           <p>
-            <FaMoneyBill className="md:hidden lg:inline"/> Weekly
+            <FaMoneyBill className="md:hidden lg:inline" /> Weekly
           </p>
           <p>
-            <FaMoneyBill className="md:hidden lg:inline"/> Monthly
+            <FaMoneyBill className="md:hidden lg:inline" /> Monthly
           </p>
         </div>
 
         <div className="border border-gray-100 mb-5"></div>
 
         <div className="flex flex-col lg:flex-row justify-between mb-4">
-          <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-            <i className="fa-solid fa-location-dot text-lg text-orange-700"></i>
-            <span className="text-orange-700">{location.city}{' '}{location.state}</span>
+          <div className="flex align-middle gap-2 mb-4 lg:mb-0 items-center">
+            <FaMapMarker className="text-orange-500" />
+            {/* <i className="fa-solid fa-location-dot text-lg text-orange-700"></i> */}
+            <span className="text-orange-700">
+              {location.city} {location.state}
+            </span>
           </div>
           <Link
-            href={`/property/${_id }`}
+            href={`/property/${_id}`}
             className="h-9 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Details
