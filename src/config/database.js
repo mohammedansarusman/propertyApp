@@ -4,6 +4,7 @@ let connected = false;
 
 const connectedDB = async () => {
   mongoose.set("strictQuery", true);
+  console.log("mongo db =>",connected);
 
   //  if database is connected
   if (connected) {
@@ -16,7 +17,7 @@ const connectedDB = async () => {
     await mongoose.connect(process.env.MONGODB_URI);
     connected = true;
   } catch (error) {
-    console.log(error)
+    console.log("error=>",error)
   }
 };
 export default connectedDB;
