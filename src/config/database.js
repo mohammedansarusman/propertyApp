@@ -4,20 +4,20 @@ let connected = false;
 
 const connectedDB = async () => {
   mongoose.set("strictQuery", true);
-  console.log("mongo db =>",connected);
 
-  //  if database is connected
   if (connected) {
-    console.log("MongoDB connected");
+    console.log("MongoDB already connected");
     return;
   }
 
-  // Connect to MongoDB
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    const conn = await mongoose.connect(process.env.MONGODB_URI);
+
     connected = true;
+    console.log("MongoDB connected:", conn.connection.host);
   } catch (error) {
-    console.log("error=>",error)
+    console.log("DB Connection Error =>", error);
   }
 };
+
 export default connectedDB;
