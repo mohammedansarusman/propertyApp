@@ -3,10 +3,10 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const GoBack = () => {
     return ( <section>
-      <div class="container m-auto py-6 px-6">
+      <div className="container m-auto py-6 px-6">
         <Link
           href="/properties"
-          class="text-blue-500 hover:text-blue-600 flex items-center"
+          className="text-blue-500 hover:text-blue-600 flex items-center"
         >
           <FaArrowLeft/>Back to Properties
         </Link>
